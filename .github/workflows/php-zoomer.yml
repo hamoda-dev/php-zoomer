@@ -1,0 +1,24 @@
+name: PHPZoomer CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  laravel-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      with:
+        php-version: '^8.0'
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: PHPCS PSR-12 Style Guide
+      run: ./vendor/bin/phpcs src --standard=PSR12
+    - name: Static Analysis via PHPStan
+      run: ./vendor/bin/phpstan analyse src

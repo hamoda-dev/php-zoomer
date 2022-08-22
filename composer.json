@@ -1,0 +1,33 @@
+{
+    "name": "hamoda-dev/php-zoomer",
+    "description": "Simple Package to interact with zoom",
+    "keywords": ["zoom", "api", "php", "library"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohammed Hamid Hamoda",
+            "email": "hamoda.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0.0",
+        "guzzlehttp/guzzle": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5.10",
+        "squizlabs/php_codesniffer": "*",
+        "phpstan/phpstan": "1.8.x-dev"
+    },
+    "authload": {
+        "psr-4": {
+            "PhpZoomer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\PhpZoomer\\": "tests"
+        }
+    }
+}
