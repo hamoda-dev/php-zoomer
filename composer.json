@@ -12,7 +12,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.0.0",
+        "php": "^8.0",
         "guzzlehttp/guzzle": "^7.2",
         "nesbot/carbon": "^2.61.0"
     },
