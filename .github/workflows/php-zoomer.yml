@@ -21,4 +21,4 @@ jobs:
     - name: PHPCS PSR-12 Style Guide
       run: ./vendor/bin/phpcs src --standard=PSR12
     - name: Static Analysis via PHPStan
-      run: ./vendor/bin/phpstan analyse src
+      run: ./vendor/bin/phpstan analyse src --level=6
