@@ -6,15 +6,26 @@ use PhpZoomer\Zoomer;
 
 class AddWebinarRegistrant
 {
-    private $response;
+    /**
+     * @var array<string, mixed>
+     */
+    private array $response;
 
+    /**
+     * @var array<string, mixed>
+     */
     private array $params;
 
     private Zoomer $zoomer;
 
-    private $webinarId;
+    private string $webinarId;
 
-    public function __construct(Zoomer $zoomer, $webinarId, array $params)
+    /**
+     * @param Zoomer $zoomer
+     * @param string $webinarId
+     * @param array<string, mixed> $params
+     */
+    public function __construct(Zoomer $zoomer, string $webinarId, array $params)
     {
         $this->zoomer = $zoomer;
         $this->params = $params;
@@ -23,7 +34,7 @@ class AddWebinarRegistrant
         $this->performTheRequest();
     }
 
-    private function performTheRequest()
+    private function performTheRequest(): void
     {
         $response = $this->zoomer->getClient()->request('POST', "v2/webinars/{$this->webinarId}/registrants", [
             'headers' => [
@@ -37,7 +48,10 @@ class AddWebinarRegistrant
         $this->response = json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getResponse()
+    /**
+     * @return array<string, mixed>
+     */
+    public function getResponse(): array
     {
         return $this->response ?? [];
     }

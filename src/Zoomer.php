@@ -69,7 +69,7 @@ class Zoomer
         $this->client = new Client(['base_uri' => 'https://api.zoom.us']);
     }
 
-    public function getClient()
+    public function getClient(): Client
     {
         return $this->client;
     }

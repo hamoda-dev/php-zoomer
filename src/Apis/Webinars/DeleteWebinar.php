@@ -6,13 +6,16 @@ use PhpZoomer\Zoomer;
 
 class DeleteWebinar
 {
-    private $response;
+    /**
+     * @var array<string, mixed>
+     */
+    private array $response;
 
     private Zoomer $zoomer;
 
-    private $webinarId;
+    private string $webinarId;
 
-    public function __construct(Zoomer $zoomer, $webinarId)
+    public function __construct(Zoomer $zoomer, string $webinarId)
     {
         $this->zoomer = $zoomer;
         $this->webinarId = $webinarId;
@@ -20,7 +23,7 @@ class DeleteWebinar
         $this->performTheRequest();
     }
 
-    private function performTheRequest()
+    private function performTheRequest(): void
     {
         $response = $this->zoomer->getClient()->request('DELETE', "v2/webinars/{$this->webinarId}", [
             'headers' => [
@@ -33,7 +36,10 @@ class DeleteWebinar
         $this->response = json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getResponse()
+    /**
+     * @return array<string, mixed>
+     */
+    public function getResponse(): array
     {
         return $this->response ?? [];
     }

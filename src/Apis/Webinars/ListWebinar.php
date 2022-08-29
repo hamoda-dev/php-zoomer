@@ -6,13 +6,16 @@ use PhpZoomer\Zoomer;
 
 class ListWebinar
 {
-    private $response;
+    /**
+     * @var array<string, mixed>
+     */
+    private array $response;
 
     private Zoomer $zoomer;
 
-    private $userId;
+    private string $userId;
 
-    public function __construct(Zoomer $zoomer, $userId = 'me')
+    public function __construct(Zoomer $zoomer, string $userId = 'me')
     {
         $this->zoomer = $zoomer;
         $this->userId = $userId;
@@ -20,7 +23,7 @@ class ListWebinar
         $this->performTheRequest();
     }
 
-    private function performTheRequest()
+    private function performTheRequest(): void
     {
         $response = $this->zoomer->getClient()->request('GET', "v2/users/{$this->userId}/webinars", [
             'headers' => [
@@ -33,7 +36,10 @@ class ListWebinar
         $this->response = json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getResponse()
+    /**
+     * @return array<string, mixed>
+     */
+    public function getResponse(): array
     {
         return $this->response ?? [];
     }
