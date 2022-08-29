@@ -69,6 +69,11 @@ class Zoomer
         $this->client = new Client(['base_uri' => 'https://api.zoom.us']);
     }
 
+    public function getClient()
+    {
+        return $this->client;
+    }
+
     public function setRedirectUri(string $uri): void
     {
         $this->redirectUri = $uri;
