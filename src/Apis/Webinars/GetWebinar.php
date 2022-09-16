@@ -2,6 +2,7 @@
 
 namespace PhpZoomer\Apis\Webinars;
 
+use Exception;
 use PhpZoomer\Zoomer;
 
 class GetWebinar
@@ -9,7 +10,7 @@ class GetWebinar
     /**
      * @var array<string, mixed>
      */
-    private array $response;
+    private array $response = [];
 
     private Zoomer $zoomer;
 
@@ -25,15 +26,19 @@ class GetWebinar
 
     private function performTheRequest(): void
     {
-        $response = $this->zoomer->getClient()->request('GET', "v2/webinars/{$this->webinarId}", [
-            'headers' => [
-                'Authorization' => "Bearer {$this->zoomer->getToken()}",
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ],
-        ]);
-
-        $this->response = json_decode($response->getBody()->getContents(), true);
+        try {
+            $response = $this->zoomer->getClient()->request('GET', "v2/webinars/{$this->webinarId}", [
+                'headers' => [
+                    'Authorization' => "Bearer {$this->zoomer->getToken()}",
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
+            ]);
+    
+            $this->response = json_decode($response->getBody()->getContents(), true);
+        } catch (Exception $e) {
+            $this->response = [];
+        }
     }
 
     /**
@@ -41,6 +46,11 @@ class GetWebinar
      */
     public function getResponse(): array
     {
-        return $this->response ?? [];
+        return $this->response;
+    }
+
+    public function isExist()
+    {
+        return ($this->response != []);
     }
 }
